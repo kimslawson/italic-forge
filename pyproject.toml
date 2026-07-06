@@ -1,0 +1,85 @@
+[project]
+name = "italic-forge"
+version = "0.1.0"
+description = "An extensible toolkit for generating high-quality optical obliques and semi-automatic italics from OpenType fonts."
+readme = "README.md"
+requires-python = ">=3.14"
+license = "MIT"
+authors = [
+    { name = "italic-forge contributors" },
+]
+keywords = ["fonts", "opentype", "typography", "italics", "oblique"]
+classifiers = [
+    "Development Status :: 2 - Pre-Alpha",
+    "Environment :: Console",
+    "Intended Audience :: Developers",
+    "Intended Audience :: Other Audience",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.14",
+    "Topic :: Multimedia :: Graphics",
+    "Topic :: Text Processing :: Fonts",
+    "Typing :: Typed",
+]
+dependencies = [
+    "fonttools>=4.58.0",
+    "typer>=0.16.0",
+]
+
+[project.urls]
+Homepage = "https://github.com/italic-forge/italic-forge"
+Repository = "https://github.com/italic-forge/italic-forge"
+Issues = "https://github.com/italic-forge/italic-forge/issues"
+
+[project.scripts]
+forge = "forge.cli:app"
+
+[dependency-groups]
+dev = [
+    "mypy>=1.16.0",
+    "pytest>=8.4.0",
+    "ruff>=0.12.0",
+]
+
+[build-system]
+requires = ["uv_build>=0.8.0,<0.9.0"]
+build-backend = "uv_build"
+
+[tool.uv.build-backend]
+module-name = "forge"
+
+[tool.ruff]
+line-length = 100
+target-version = "py314"
+
+[tool.ruff.lint]
+select = [
+    "B",
+    "D",
+    "E",
+    "F",
+    "I",
+    "N",
+    "PL",
+    "UP",
+]
+ignore = [
+    "D203",
+    "D213",
+]
+
+[tool.ruff.lint.per-file-ignores]
+"tests/**/*.py" = ["D100", "D103"]
+
+[tool.mypy]
+python_version = "3.14"
+strict = true
+packages = ["forge"]
+
+[[tool.mypy.overrides]]
+module = ["fontTools.*"]
+ignore_missing_imports = true
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-ra"
